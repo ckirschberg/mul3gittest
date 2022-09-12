@@ -8,21 +8,33 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"); 
 
 
+$requestType = $_SERVER["REQUEST_METHOD"];
 
-//Her!
 $servername = "localhost:3306";
 $username = "root";
 $password = getenv("PASSWORD");
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=test", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $statement = $conn->query("select * from cats");
-    $result = $statement->fetchAll();
 
-    echo json_encode($result);
-} catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
+
+if($requestType == "GET") {
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=test", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $conn->query("select * from cats");
+        $result = $statement->fetchAll();
+
+        echo json_encode($result);
+    } catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+    }
 }
+elseif ($requestType == "POST") {
+    echo "You sent a post!";
+
+    $name = $input["name"];
+    $color = $input["color  "];
+
+}
+
 ?> 
