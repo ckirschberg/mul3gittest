@@ -35,8 +35,9 @@ if($requestType == "GET") {
 elseif ($requestType == "POST") {
     echo "You sent a post!";
 
-    $name = $input["name"];
-    $color = $input["color  "];
+    // This code will not work without reading the body of the request and saving it in a $input array.
+    // $name = $input["name"];
+    // $color = $input["color"];
 
 }
 
